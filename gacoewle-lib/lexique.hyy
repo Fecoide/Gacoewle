@@ -1,0 +1,59 @@
+#[stddef.hyy];
+
+#(file_metadata) <- {
+  #(file) <- {
+    #(file_name) <- 'lexique',
+    #(file_type) <- 'hyy'
+  },
+  #(author) <- 'Heyangyang',
+  #(description) <- 'lexique',
+};
+
+---- lexque.hyy ----
+
+#(strength) :: {
+  #(desc) <- 'strength',
+  '_' <- {'strong' | 'weak' }
+}
+
+#(gender) :: {
+  #(desc) <- 'gender',
+  '_' <- {'masculine' | 'feminine'}
+}
+
+#(part_of_speech) :: {
+  #(static) :: {
+    #(desc) <- 'static',
+    #(strength),
+    #(gender)
+  },
+  #(dynamic) :: {
+    #(desc) <- 'dynamic',
+    #(strength),
+    #(gender)
+  }
+  #(sub_dynamic) :: #(desc) <- 'sub_dynamic',
+  #(modifier) :: {
+    #(pre_modifier)  :: #(desc) <- 'pre_modifier',
+    #(post_modifier) :: {
+      #(desc) <- 'post_modifier',
+      #(strength),
+      #(gender)
+    }
+  }
+};
+
+#(iveygnenes) :: {
+  #(desc) <- 'iveygnenes',
+  [_]
+};
+
+#(definition) :: {
+  #(desc) <- 'defination'
+  '_'
+};
+
+#(gloss) :: {
+  #(desc) <- 'gloss'
+  '_'
+};
