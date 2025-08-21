@@ -1,0 +1,126 @@
+#(file_metadata) <- {
+  #(file) <- {
+    #(file_name) <- 'stddef',
+    #(file_type) <- 'hyy'
+  },
+  #(author) <- 'QHIRA_HYY',
+  #(description) <- 'standard defination'
+};
+
+---- stddef.hyy ----
+
+----
+Auth: Heyangyang
+Desc: file defination
+----
+
+#(file_metadata) :: {
+  #(file) :: {
+    #(desc) <- 'file',
+    #(file_name) :: {
+      #(desc) <- 'file_name',
+      '_'
+    },
+    #(file_type) :: {
+      #(desc) <- 'file_type',
+      '_'
+    }
+  },
+  #(author) :: {
+    #(desc) <- 'author',
+    '_'
+  },
+  #(description) :: {
+    #(desc) <- 'description',
+    '_'
+  },
+  #(create_time) :: {
+    #(desc) <- 'create_time',
+    '_'
+  }
+};
+
+----
+Auth: Heyangyang
+Desc: basic defination
+----
+
+#(desc) :: {
+  "Define a component to descript a certain component"
+  #(desc) <- 'description',
+  '_'
+};
+
+----
+Auth: Heyangyang
+Desc: phonetic defination
+----
+
+---- vowel ----
+
+#(V) :: {
+  "Define valid vowels in Gacoœùle"
+  #(desc) <- 'vowel',
+  [_] <- *[ a | e | i | o | u ]
+};
+
+#(Vs) :: {
+  #(desc) <- 'vowel_clutter',
+  [_] <- *[#(V)#(_)]
+};
+
+#(inv) :: {
+  #(desc) <- 'invisible_i',
+  [_] <- *[]
+};
+
+---- consonant ----
+
+#(C) :: {
+  "Define valid consonants in Gacoœùle"
+  #(desc) <- 'consonant',
+  [_] <- *[
+    b | c | d | f | g | h | j | l |
+    m | n | p | r | s | t | v | w | z
+  ]
+};
+
+#(Cs) :: {
+  #(desc) <- 'consonant_clutter',
+  [_] <- *[#(C)#(_)]
+};
+
+#(F) :: {
+  #(desc) <- 'flaxive',
+  [_] <- *[ f | h | j | s | v | w | z ]
+};
+
+#(N) :: {
+  #(desc) <- 'nasal',
+  [_] <- *[ m | n ]
+};
+
+#(U) :: {
+  #(desc) <- 'unvoiced',
+  [_] <- *[ c | f | p | s | t ]
+};
+
+---- other ----
+
+#(str) :: {
+  #(desc) <- 'instem_string',
+  [_] <- {
+  *[#(_).] >> *[=#(str)#(_).],
+  *[.#(_)] >> *[.#(_)#(str)=]
+  }
+};
+
+#(root) :: {
+  #(desc) <- 'root_stem',
+  [_] <- *[#(Cs)#(V)#(Cs)#(inv)]
+}
+
+#(null) :: {
+  #(desc) <- 'null',
+  [_] <- []
+}
