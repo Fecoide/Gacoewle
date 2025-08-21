@@ -3,7 +3,7 @@
     #(file_name) <- 'stddef',
     #(file_type) <- 'hyy'
   },
-  #(author) <- 'QHIRA_HYY',
+  #(author) <- 'Heyangyang',
   #(description) <- 'standard defination'
 };
 
