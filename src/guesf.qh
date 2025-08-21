@@ -1,0 +1,62 @@
+#[stddef.hyy];
+#[lexique.hyy];
+
+#(file_metadata) <- {
+  #(file) <- {
+    #(file_name) <- 'guesf',
+    #(file_type) <- 'hyy'
+  },
+  #(author) <- 'Heyangyang',
+  #(description) <- 'guesf'
+};
+
+---- guesf.qh ----
+
+*[arz+a|>os] :: {
+  #(iveygnenes) <- [artios],
+  #(definition) <- 'silver'
+};
+
+*[*arz+a|>os#fel-ari+o+a|>os] :: {
+  #(iveygnenes) <- [artios-feaures],
+  #(definition) <- 'antimony'
+  #(gloss)      <- 'iron-like silver'
+};
+
+*[arz+a|>os#itc-ari+o+a|>os] :: {
+  #(iveygnenes) <- [artios-iteilleres],
+  #(definition) <- 'bismuth',
+  #(gloss) <- 'rainbow silver'
+};
+
+*[bulm+o|>os] :: {
+  #(iveygnenes) <- [bulims],
+  #(definition) <- 'lead'
+};
+
+*[bulm+o|>os#sani+o+a] :: {
+  #(iveygnenes) <- [bulims-sagne],
+  #(definition) <- 'zinc',
+  #(gloss)      <- 'blue lead'
+};
+
+*[cut+o] :: {
+  #(iveygnenes) <- [cut],
+  #(definition) <- 'copper'
+};
+
+*[*fel+a] :: {
+  #(iveygnenes) <- [fele],
+  #(definition) <- 'iron'
+};
+
+*[ori+o|>os] :: {
+  #(iveygnenes) <- [ores],
+  #(definition) <- 'gold'
+};
+
+*[soc+o#esdequat?#nerc+o] :: {
+  #(iveygnenes) <- [soeille-esdequat-nerc],
+  #(definition) <- 'mercury',
+  #(gloss)      <- 'liquid soul'
+}
