@@ -1,0 +1,167 @@
+#[stddef.hyy];                 "Include stddef.hyy"
+" Standard definition header file, defines commonly used Fycoide such as desc, V, C, null "
+
+#(file_metadata) <- {          "Define document properties"
+  #(file) <- {
+    #(file_name) <- 'help',    "Document name"
+    #(file_type) <- 'qh'       "Document extension"
+  },
+  #(author) <- 'Heyangyang',   "Author"
+  #(description) <- 'help_qh'  "Description"
+};
+
+---- Data Types ----
+
+"Only data of the same type can evolve into each other"
+
+#(MORP00) :: [_];              "Word type"
+#(DESC00) :: '_';              "Description type"
+
+---- Definition and Assignment ----
+
+#(DEFN00) :: [_];              "Define single-attribute Fycoide"
+" Structures like #(xxx) are called Fycoide
+  or grammatical description templates of
+  the language "
+
+#(DEFN01) :: {                 "Define multi-attribute Fycoide"
+  " Within a Fycoide, the same data type
+    can have only one instance, except
+    when nesting Fycoide"
+  '_',
+  '_', -- ERROR: Syntax error: duplicate data type definition
+  [_],
+};
+
+#(DESC00) <- 'desc';           "Fycoide assignment"
+
+#(DEFN02) :: {                 "Nested multi-attribute Fycoide"
+  #(DESC00) <- 'desc',
+  " This only temporarily assigns the description
+    type within #(DESC00), and it only takes effect
+    in the current definition scope "
+  #(MORP00) <- [morp]
+};
+
+#(flu_i) :: {
+  " Define a flu_i "
+  [_] <- *[ i | #(null) ]          " Direct Fycoide call"
+  " When calling a Fycoide, the corresponding
+    data structure is automatically selected "
+};
+
+#(flu_i_exists) :: {               "Conditional definition"
+  " This code demonstrates the sequential
+    execution of conditional judgments "
+  #(desc) <- 'if_flu_i_exists',
+  '_' <- {
+    *[#(flu_i)@0] >> {
+    " Check if flu_i is empty "
+      *[#(null)]@0 >> 'true',
+      " If the word value of flu_i is null
+        then define flu_i_exists as true "
+      [#(_)]@0 >> 'false'
+      " If the word value of flu_i matches
+        the word value of flu_i (i.e., all cases)
+        then define flu_i_exists as false "
+    }
+  }
+};
+
+---- Evolution ----
+
+*[                                 "Unconditional evolution"
+  acli-ori+a|>os
+  =bel-sim+o+a
+] -> [acueres];
+" Where *[xx] represents the reconstructed form
+  of the original language, with data type still
+  being word type "
+
+---- Common special symbols in words
+  =                 Root boundary of the language
+  -                 Stem-affix division line
+  +a,   +o          Original language masculine/feminine
+  |>os, |>ar        Original language morphological suffixes
+  |>xx-xx           Original language agglutinative endings
+  <|                Prefix marker
+  |                 OR
+  &                 AND
+  x!, [xxx]!        NOT
+  .                 Grouping (for readability, no grammatical
+                    meaning, each group must have at least
+                    one actual phoneme or Fycoide)
+  [.x], [x.]        Possible other phonemes before/after
+                    this word type
+  ...               Omission of possible phonemes
+  [xx]?             Uncertain part
+----
+
+[c] -> {                           "Condition"
+  [ #(_) [e|i]   ] >> [qu],
+  " The expression before the >> conditional
+    branch symbol describes the evolution
+    condition of the word to be evolved.
+    #(_) is a placeholder Fycoide, indicating
+    that the word being evolved is in this
+    position. This branch evolution means
+    when c is followed by e or i, it becomes qu "
+  [ #(_) [a|o|u] ] >> [c]
+  " When c is followed by a, o, or u,
+    it becomes c "
+};
+
+*[c, z] -> {                       "Multiple evolution"
+  " Separated by commas "
+  [ #(_) [e|i]   ] >> [qu, c],
+  [ #(_) [a|o|u] ] >> [c, ch]
+};
+
+*[-o...] -> {                      "Nested condition"
+  *[#(root)#(flu_i)@0=#(_)] >> {
+    " The @0 mark here indicates that the preceding
+      part participates in the condition matching below.
+      The format can be Fycoide or word "
+    *[i]@0 >> [e],
+    " When the #(flu_i) at parent condition @0
+      is *[i], evolve to [e] "
+    *[#(null)]@0 >> [o]
+    " When the #(flu_i) at parent condition @0
+      is [#(null)], evolve to [o] "
+  }
+};
+
+[] -> {                            "Example"
+  " Vowel supplement rule of the language "
+  {
+    [
+      *[=#(Cs)]
+      #(_)
+      *[#(Cs)#(V)@1#(Cs)=]
+    ]
+    |
+    [
+      *[=#(Cs)#(V)@1#(Cs)]
+      #(_)
+      *[#(Cs)=]
+    ]
+  } >> {
+    *[a]@1 >> [ i ],
+    *[e]@1 >> [ a ],
+    *[i]@1 >> [ e ],
+    *[o]@1 >> [ o ],
+    *[u]@1 >> [ u ]
+  }
+};
+
+---- Entry Definition ----
+
+#[lexique.hyy];             "Include lexique.hyy"
+
+*[acli+a|>os] :: {          "Define entry"
+  #(iveygnenes) <- 'acues', "Define modern spelling"
+  #(part_of_speech) <- {    "Define part of speech"
+    #(static) <- 'masculine'
+  },
+  #(gloss)  <- 'water'      "Define meaning"
+};
