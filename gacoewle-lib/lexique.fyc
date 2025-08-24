@@ -1,25 +1,25 @@
-#[stddef.hyy];
+#[stddef.fyc];
 
 #(file_metadata) <- {
   #(file) <- {
     #(file_name) <- 'lexique',
-    #(file_type) <- 'hyy'
+    #(file_type) <- 'fyc'
   },
   #(author) <- 'Heyangyang',
   #(description) <- 'lexique',
 };
 
----- lexque.hyy ----
+---- lexque.fyc ----
 
 #(strength) :: {
   #(desc) <- 'strength',
   '_' <- {'strong' | 'weak' }
-}
+};
 
 #(gender) :: {
   #(desc) <- 'gender',
   '_' <- {'masculine' | 'feminine'}
-}
+};
 
 #(part_of_speech) :: {
   #(static) :: {
