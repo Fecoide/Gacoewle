@@ -1,13 +1,13 @@
 #(file_metadata) <- {
   #(file) <- {
     #(file_name) <- 'stddef',
-    #(file_type) <- 'hyy'
+    #(file_type) <- 'fyc'
   },
   #(author) <- 'Heyangyang',
   #(description) <- 'standard defination'
 };
 
----- stddef.hyy ----
+---- stddef.fyc ----
 
 ----
 Auth: Heyangyang
@@ -65,8 +65,10 @@ Desc: phonetic defination
 };
 
 #(Vs) :: {
-  #(desc) <- 'vowel_clutter',
-  [_] <- *[#(V)#(_)]
+  #(desc) <- 'vowel_cluster',
+  [_] <- {
+    *[ #(V) | [#(V)#(Vs)] ]
+  }
 };
 
 #(inv) :: {
@@ -86,12 +88,14 @@ Desc: phonetic defination
 };
 
 #(Cs) :: {
-  #(desc) <- 'consonant_clutter',
-  [_] <- *[#(C)#(_)]
+  #(desc) <- 'consonant_cluster',
+  [_] <- {
+    *[ #(C) | [#(C)#(Cs)] ]
+  }
 };
 
 #(F) :: {
-  #(desc) <- 'flaxive',
+  -- #(desc) <- 'test',
   [_] <- *[ f | h | j | s | v | w | z ]
 };
 
@@ -107,6 +111,11 @@ Desc: phonetic defination
 
 ---- other ----
 
+#(P) :: {
+  #(desc) <- 'phoneme',
+  [_] <- *[#(V)|#(C)]
+};
+
 #(str) :: {
   #(desc) <- 'instem_string',
   [_] <- {
@@ -118,9 +127,25 @@ Desc: phonetic defination
 #(root) :: {
   #(desc) <- 'root_stem',
   [_] <- *[#(Cs)#(V)#(Cs)#(inv)]
-}
+};
 
 #(null) :: {
   #(desc) <- 'null',
   [_] <- []
-}
+};
+
+---- Operator ----
+
+#(Stack) :: {
+  #(desc) <- 'stack'
+  [_] <- [#(null) | #(_)#(Stack)]
+};
+
+#(Sequence) :: {
+  #(desc) <- 'sequence'
+  [_] <- [ #(P) | [#(P)#(Sequence)] ]
+};
+
+
+
+
