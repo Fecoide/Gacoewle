@@ -226,3 +226,52 @@
   },
   #(gloss)  <- 'water'      "Define meaning"
 };
+
+---- Fycoide Operator Syntax
+
+Fycoide supports two equivalent operator syntaxes.
+Choose freely based on your preference, or mix both
+styles.
+
+== Operator Reference
+
+╭────────┬───────────┬─────────────────────╮
+│ Symbol │  Keyword  │       Meaning       │
+├────────┼───────────┼─────────────────────┤
+│   ::   │ shapes    │ Define structure    │
+│   <-   │ holds     │ Assign value        │
+│   ->   │ shifts    │ Sound evolution     │
+│   >>   │ triggers  │ Conditional branch  │
+│   @>   │ flows     │ Apply pattern       │
+╰────────┴───────────┴─────────────────────╯
+
+== Examples
+
+Symbolic Style:
+
+╭─FGFH──────────────────────────────╮
+│ #(Stack) :: {                     │
+│   [_] <- [#(null) | #(_)#(Stack)] │
+│ };                                │
+│ *[hello] @> #(Stack);             │
+│ [c] -> {                          │
+│   [ #(_) [e|i] ] >> [qu]          │
+│ };                                │
+╰───────────────────────────────────╯
+
+╭─FGFH──────────────────────────────╮
+│ #(Stack) shapes {                 │
+│   [_] holds [                     │
+│     #(null) | #(_)#(Stack)        │
+│   ]                               │
+│ };                                │
+│ *[hello] flows #(Stack);          │
+│ [c] shifts {                      │
+│   [ #(_) [e|i] ] triggers [qu]    │
+│ };                                │
+╰───────────────────────────────────╯
+
+Both syntaxes are fully supported by the syntax 
+checker and can be used interchangeably.
+
+----
