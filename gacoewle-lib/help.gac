@@ -1,3 +1,12 @@
+" This document describes a paradigm called
+  FGFH (Fycoide-Based Gacœùle Formalism by 
+  HYY), a Gacœùle grammatical description 
+  framework created by HYY. Its core is the
+  use of composable abstract units called
+  Fycoides to formally define the lexicon,
+  phonology, and evolutionary rules of the
+  Gacœùle language."
+
 ---- File Type ----
 
 " Regular files are *.gac, header files are *.fyc "
