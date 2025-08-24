@@ -1,16 +1,16 @@
-#[stddef.hyy];
-#[lexique.hyy];
+#[stddef.fyc];
+#[lexique.fyc];
 
 #(file_metadata) <- {
   #(file) <- {
     #(file_name) <- 'guesf',
-    #(file_type) <- 'hyy'
+    #(file_type) <- 'gac'
   },
   #(author) <- 'Heyangyang',
   #(description) <- 'guesf'
 };
 
----- guesf.qh ----
+---- guesf.gac ----
 
 *[arz+a|>os] :: {
   #(iveygnenes) <- [artios],
