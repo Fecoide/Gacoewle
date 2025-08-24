@@ -1,18 +1,24 @@
-#[stddef.hyy];                 "Include stddef.hyy"
-" Standard definition header file, defines commonly used Fycoide such as desc, V, C, null "
+---- File Type ----
 
-#(file_metadata) <- {          "Define document properties"
+" Regular files are *.gac, header files are *.fyc "
+
+#[stddef.fyc];                 "Import fyc library"
+" Standard definition header file, defines commonly used Fycoides like desc, V, C, null, etc."
+
+---- File Attributes ----
+
+#(file_metadata) <- {          "Define document attributes"
   #(file) <- {
     #(file_name) <- 'help',    "Document name"
-    #(file_type) <- 'qh'       "Document extension"
+    #(file_type) <- 'gac'      "File extension"
   },
   #(author) <- 'Heyangyang',   "Author"
-  #(description) <- 'help_qh'  "Description"
+  #(description) <- 'help'     "Description"
 };
 
 ---- Data Types ----
 
-"Only data of the same type can evolve into each other"
+" Only data of the same type can co-evolve "
 
 #(MORP00) :: [_];              "Word type"
 #(DESC00) :: '_';              "Description type"
@@ -20,16 +26,12 @@
 ---- Definition and Assignment ----
 
 #(DEFN00) :: [_];              "Define single-attribute Fycoide"
-" Structures like #(xxx) are called Fycoide
-  or grammatical description templates of
-  the language "
+" Structures like #(xxx) are called Fycoides or Gacœùle Grammar Description Templates "
 
 #(DEFN01) :: {                 "Define multi-attribute Fycoide"
-  " Within a Fycoide, the same data type
-    can have only one instance, except
-    when nesting Fycoide"
+  " Within a single Fycoide, there can be one and only one instance of the same data type, except when nesting Fycoides."
   '_',
-  '_', -- ERROR: Syntax error: duplicate data type definition
+  '_', -- ERROR: Syntax Error: Duplicate data type definition
   [_],
 };
 
@@ -37,35 +39,59 @@
 
 #(DEFN02) :: {                 "Nested multi-attribute Fycoide"
   #(DESC00) <- 'desc',
-  " This only temporarily assigns the description
-    type within #(DESC00), and it only takes effect
-    in the current definition scope "
+  " Here, the description type value within #(DESC00) is temporarily assigned and is only effective within the current definition scope. "
   #(MORP00) <- [morp]
 };
 
 #(flu_i) :: {
   " Define a flu_i "
   [_] <- *[ i | #(null) ]          " Direct Fycoide call"
-  " When calling a Fycoide, the corresponding
-    data structure is automatically selected "
+  " When calling a Fycoide, the corresponding data structure is automatically selected. "
 };
 
 #(flu_i_exists) :: {               "Conditional definition"
-  " This code demonstrates the sequential
-    execution of conditional judgments "
+  " This code demonstrates the sequential execution of conditional judgments. "
   #(desc) <- 'if_flu_i_exists',
   '_' <- {
     *[#(flu_i)@0] >> {
-    " Check if flu_i is empty "
+    " Check if flu_i is null "
+    " The @0 here indicates capturing the smallest preceding combination as a capture group, indexed by position and stored in an internal temporary mapping. "
       *[#(null)]@0 >> 'true',
-      " If the word value of flu_i is null
-        then define flu_i_exists as true "
+      " If the word value of flu_i is null, then define flu_i_exists as true. "
+      " The @0 here, used as a reference suffix, checks if the content at this address matches what is actually stored in the internal mapping. "
       [#(_)]@0 >> 'false'
-      " If the word value of flu_i matches
-        the word value of flu_i (i.e., all cases)
-        then define flu_i_exists as false "
+      " If the word value of flu_i matches the word value of flu_i (i.e., in all cases), then define flu_i_exists as false. "
     }
   }
+};
+
+#(append_a) :: {                   "Recursive definition"
+  [_] <- {
+    [ a | #(append_a) ]
+    " Here, a Fycoide named append_a is defined recursively, specifically manifesting as the concatenation of one or more word types 'a'. "
+  }
+};
+
+#(MORP04) :: {                     "Capture assignment"
+  " Here, using a capture group, only a part of the word type is selected for assignment. "
+  [_]@0 <- [[hello]@0world]
+};
+
+#(MORP04_is_hello) :: {
+  " The description value of MORP04_is_hello here is false. "
+  '_' <- {
+    [#(MORP04)]@0 >> {
+      [hello]@0 >> 'true',
+      [_]@0 >> 'false'
+    }
+  }
+};
+
+#(MORP01) :: { [_] <- [a] };       "Example: Word concatenation"
+#(MORP02) :: { [_] <- [b] };
+#(MORP03) :: {
+  " Define MORP03 as the concatenated combination of MORP01 and MORP02."
+  [_] <- [#(MORP01)#(MORP02)]
 };
 
 ---- Evolution ----
@@ -74,66 +100,50 @@
   acli-ori+a|>os
   =bel-sim+o+a
 ] -> [acueres];
-" Where *[xx] represents the reconstructed form
-  of the original language, with data type still
-  being word type "
+" Here, *[xx] represents the reconstructed form of the proto-language, and the data type is still the word type. "
 
----- Common special symbols in words
-  =                 Root boundary of the language
-  -                 Stem-affix division line
-  +a,   +o          Original language masculine/feminine
-  |>os, |>ar        Original language morphological suffixes
-  |>xx-xx           Original language agglutinative endings
-  <|                Prefix marker
-  |                 OR
-  &                 AND
-  x!, [xxx]!        NOT
-  .                 Grouping (for readability, no grammatical
-                    meaning, each group must have at least
-                    one actual phoneme or Fycoide)
-  [.x], [x.]        Possible other phonemes before/after
-                    this word type
-  ...               Omission of possible phonemes
+---- Common Special Symbols within Words ----
+  =                 Gacœùle root boundary
+  -                 Gacœùle stem-affix separator
+  +a,   +o          Proto-Gacœùle masculine/feminine
+  |>os, |>ar        Proto-Gacœùle morphological suffixes
+  |>xx-xx           Proto-Gacœùle agglutinative endings
+  <|                Gacœùle prefix marker
+  |                 Or
+  &                 And
+  x!, [xxx]!        Not
+  .                 Grouping (for readability, no syntactic meaning, each group must have at least one actual phoneme or Fycoide)
+  [.x], [x.]        Indicates possible other phonemes before/after this word type
+  ...               Ellipsis for possible phonemes
   [xx]?             Uncertain part
 ----
 
 [c] -> {                           "Condition"
   [ #(_) [e|i]   ] >> [qu],
-  " The expression before the >> conditional
-    branch symbol describes the evolution
-    condition of the word to be evolved.
-    #(_) is a placeholder Fycoide, indicating
-    that the word being evolved is in this
-    position. This branch evolution means
-    when c is followed by e or i, it becomes qu "
+  " The expression before the >> conditional branch operator describes the evolution condition for the target word. #(_) is a placeholder Fycoide, used to indicate the situation where the target word as a whole is in this position. This branch evolution means: when c is immediately followed by e or i, it becomes qu. "
   [ #(_) [a|o|u] ] >> [c]
-  " When c is followed by a, o, or u,
-    it becomes c "
+  " When c is immediately followed by a or o or u, it remains c. "
 };
 
 *[c, z] -> {                       "Multiple evolution"
-  " Separated by commas "
+  " Separated by commas. "
   [ #(_) [e|i]   ] >> [qu, c],
   [ #(_) [a|o|u] ] >> [c, ch]
 };
 
-*[-o...] -> {                      "Nested condition"
+*[-o...] -> {                      "Nested conditional evolution"
   *[#(root)#(flu_i)@0=#(_)] >> {
-    " The @0 mark here indicates that the preceding
-      part participates in the condition matching below.
-      The format can be Fycoide or word "
+    " The @0 here marks the preceding part for participation in the following condition matching. The format can be a Fycoide or a word. "
     *[i]@0 >> [e],
-    " When the #(flu_i) at parent condition @0
-      is *[i], evolve to [e] "
+    " When the #(flu_i) at the parent condition @0 is *[i], evolve to [e]. "
     *[#(null)]@0 >> [o]
-    " When the #(flu_i) at parent condition @0
-      is [#(null)], evolve to [o] "
+    " When the #(flu_i) at the parent condition @0 is [#(null)], evolve to [o]. "
   }
 };
 
 [] -> {                            "Example"
-  " Vowel supplement rule of the language "
-  {
+  " Gacœùle vowel supplementation rule, essentially a long-distance vowel harmony phenomenon. "
+  [
     [
       *[=#(Cs)]
       #(_)
@@ -145,7 +155,7 @@
       #(_)
       *[#(Cs)=]
     ]
-  } >> {
+  ] >> {
     *[a]@1 >> [ i ],
     *[e]@1 >> [ a ],
     *[i]@1 >> [ e ],
@@ -154,11 +164,53 @@
   }
 };
 
----- Entry Definition ----
 
-#[lexique.hyy];             "Include lexique.hyy"
+---- Capture Evolution ----
 
-*[acli+a|>os] :: {          "Define entry"
+*[hello] @> { [#(V)] >> [#(null)] };
+" Traverse and replace all minimal capture groups satisfying the condition, equivalent to evolving to [hll]. "
+
+*[hello] @> { [#(_)]@2 >> [x] };
+" Traverse to the third minimal capture group, evolve it to x, equivalent to evolving to [hexlo]. "
+
+*[hello] @> { [#(V)]@[0&1] >> [x] };
+" Traverse to the first and second minimal capture groups, if they are V, evolve to x, equivalent to evolving to [hxllo]. "
+" The usage of @[0&2] is because all adjacent numeric characters following @ are read together as the match group address."
+
+*[[he]llo] @> {
+  " In this example, [he] is treated as one minimal capture group, equivalent to evolving to [hexlxlxox]. "
+  *[#(_)] >> [#(_)x]
+};
+
+#(StackTest) :: {
+  " Define a Fycoide representing a stack. "
+  [_] <- [#(null) | #(_)#(StackTest)]
+};
+
+*[hello] @> #(StackTest);
+" Evolve via Stack to the reverse [olleh]. "
+" h process: h + #(StackTest) -> h + #(null) = h
+  e process: e + #(StackTest) -> e + h = eh
+  l process: l + #(StackTest) -> l + eh = leh
+  l process: l + #(StackTest) -> l + leh = lleh
+  o process: o + #(StackTest) -> o + lleh = olleh
+  This example proves that the definition is not a recursive call to itself, but a reference to the already constructed result data. During the traversal of @>, each position can obtain the result accumulated from the previous steps, indicating that FGFH is descriptive rather than procedural. "
+
+---- Formula Definition ----
+
+#(AppendE) :: {
+  [_] <- [#(_)e]
+  " The usage of the placeholder in the assignment statement is similar to that in conditional statements; here it is used as an input slot. "
+};
+
+[blond] -> [#(AppendE)]; "[blond] -> [blonde]"
+[grand] -> [#(AppendE)]; "[grand] -> [grande]"
+
+---- Lexeme Definition ----
+
+#[lexique.fyc];             "Import lexique.fyc header file"
+
+*[acli+a|>os] :: {          "Define lexeme"
   #(iveygnenes) <- 'acues', "Define modern spelling"
   #(part_of_speech) <- {    "Define part of speech"
     #(static) <- 'masculine'
