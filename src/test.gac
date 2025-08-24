@@ -1,15 +1,15 @@
-#[stddef.hyy];
+#[stddef.fyc];
 
 #(file_metadata) <- {
   #(file) <- {
     #(file_name) <- 'test',
-    #(file_type) <- 'qh'
+    #(file_type) <- 'gac'
   },
   #(author) <- 'Heyangyang',
   #(description) <- 'test'
 };
 
----- test.qh ----
+---- test.gac ----
 
 *[#(V)] -> {
   *[#(C)#(_)c] >> {
