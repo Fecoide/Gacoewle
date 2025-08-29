@@ -1,0 +1,454 @@
+" Notice Regarding Fictional Language System "
+
+" All content described in this document, including but not limited to the phonetics, grammar, lexicon, historical evolution rules of the 'Gacœùle' language, and background settings such as 'Pnugios University,' is entirely a work of artistic fiction and does not represent any real or historical language. "
+
+" The code-like syntax employed herein (e.g., *[ki] -> { ... }) is a formally structured descriptive tool specifically designed for this language. It is used to define the fictional historical phonological evolution rules in a clear and systematic manner. It is not a general-purpose programming language, nor is it standard computer pseudocode. Rather, it constitutes a custom, domain-specific descriptive notation system. Please do not confuse it with any real computer language or formal linguistic standard. "
+
+" This document is intended for artistic construction (Artlang) and narrative purposes, provided for the reader's entertainment and inspiration. "
+
+#[gacdef.fyc];
+
+#(null) :: {
+  [_] <- []
+};
+
+"Modern Gacœùle Phonetic Variations and Spelling Standards, formulated by the Pnugios University Linguistics Society"
+
+"Universal Gacœùle is a constructed language developed by the Pnugios University Linguistics Society, based on the Saraf dialect and reconstructed Primordial Gacœùle as a reference, with further refinements and standardization."
+
+"Primordial Gacœùle is typically marked with an *, and Universal Gacœùle can be programmatically derived from it through the series of rules described in this document."
+
+"NOTE: For simplicity in recording the reconstruction of Primordial Gacœùle, the following letters are used for spelling:"
+" ╭─────────────╮ "
+" │ a e i o u   │ "
+" │ p b m t d n │ "
+" │ c/k g s z/ç │ "
+" │ h f v w j   │ "
+" ╰─────────────╯ "
+
+"NOTE: The basic monosyllabic root structure in Primordial Gacœùle is:"
+" ╭──────────────────────────────────╮ "
+" │ *(C...)VC(C...)(i|<invisible i>) │ "
+" ╰──────────────────────────────────╯ "
+" - The single V is called the anchor vowel."
+" - Epenthetic vowels can be inserted between consonants."
+" - The invisible i can be denoted as &i."
+
+"TIP: When forming compound words from multiple roots, if a situation not covered in the tables arises where the tail of the preceding root and the head of the following root are both consonants, use e as a separator between roots. For example:"
+" *man-stek > manesteille."
+" When an anchor vowel or epenthetic vowel e is parsed as the separator e, it becomes è. For example:"
+" *bfenl > bafènal"
+" Because bafenal would be parsed as *baf-nal."
+
+"The order of rule application is *not* specified by the tables in this document. Different orders lead to different results, but there are two general unwritten principles:"
+" - Prefer the order that causes the greatest change from the primordial spelling."
+" - Minimize ambiguity. Ensure that at the deepest possible level of derivation, different primordial roots yield different Universal Gacœùle spellings, and different Universal Gacœùle spellings can be traced back to unique primordial roots."
+
+"TIP: This document covers standard spelling, not morphological aspects. To aid understanding of the examples given, here is a brief explanation of inflectional endings in the morphology."
+" In Gacœùle, the verb infinitive and noun nominative are considered the dictionary or base forms. The verb infinitive is formed by adding the *-ar suffix. The noun nominative is divided into two types:"
+" - Strong Stative: Feminine adds the -e suffix."
+" - Strong Stative: Adds the -os suffix, which is often simplified to -s."
+" Additionally, there are unwritten conventions regarding the word-final -e in Universal Gacœùle:"
+" - Add -e if the word ends with two or more identical consonants, except for -ss resulting from strong stative inflection."
+" - Add -e to form -se if the word ends in -s, except for -s resulting from strong stative inflection."
+" - Word endings can only have a single -e, not identical e's like -ee, etc., but extended Latin letters are allowed (e.g., -ée is permitted)."
+
+" ======== "
+
+" MARK: Vowel Rules "
+
+*[#(Cs)?#(C)@0c=] -> {
+  " Elision of word-final k, generally applies to (C...)Vk root structures. Does not apply if an epenthetic vowel exists before the anchor vowel or in compound roots. For example:"
+  " *nak > naie is correct, while *lnak > linai and *man-stek > manestie are incorrect."
+  *[a, e, i, o, u]@0 >> [
+    ai[e]?,
+    oi | ie | e[c|que] ,
+    ei[e]? | ille | i[c|que],
+    eu[e]?,
+    oui[lle]?
+  ]
+};
+
+*[#(V)@0c] -> {
+  *[#(_)-=[#(Cs)|#(null)]@1#(V)#(Cs)] >> {
+    *[a, e, i, o, u]@0 >> {
+      [#(null)]@1 >> [
+        " When followed by a consonant-initial root, the final k of the preceding root elides (not directly)."
+        " e.g., *nak-bat > nauebats"
+        aue, ao, yu, aow, eue
+      ],
+      [#(_)] >> [[
+        " When followed by a vowel-initial root or inflectional suffix, the final k of the preceding root palatalizes."
+        " e.g., *sek-ar > seiller"
+        aill |ak|ash,
+        eill |ek|esh,
+        euill|ik|eush,
+        oeill|ok|oesh,
+        ouill|uk|oush
+      ]#(i)]
+    }
+  }
+};
+
+*[#(V)@0r=[a|#(null)]@1#(Cs)] -> {
+  *[a]@1 >> [
+    " e.g., *ler-an > laen"
+    aw, ae, ya, oe, ew
+  ],
+  *[#(null)]@1 >> [
+    " e.g., *mur-cat > moocat"
+    oih, ea, yo, oa, oo
+  ]
+};
+
+*[#(V)@0l=[a|#(null)]@1#(Cs)] -> {
+  *[a]@1 >> [
+    " e.g., *bel-at > beaut"
+    au, eau, ieu, ou, ow
+  ],
+  *[#(null)]@1 >> [
+    " e.g., *bel-ser > boieser"
+    aie, oie, ih, oue, eou
+  ]
+};
+
+*[#(null)] -> {
+  *[
+    #(Cs)?#(V)@0#(Cs)#(_)#(Cs) |
+    #(Cs)#(_)#(Cs)#(V)@0#(Cs)
+  ] >> {
+    " Epenthetic schwa vowel between consonant clusters based on the anchor vowel. Not an actual pronunciation, but a spelling standard, typically inserted between difficult-to-pronounce consonant clusters."
+    " e.g., *rnel > ranel"
+    [a, e, i, o, u]@0 >> [
+      i, a, e, a, i
+    ]
+  }
+};
+
+*[#(V)@0] -> {
+  " Elision of word-final k, generally applies to (C...)Vk root structures. Does not apply if an epenthetic vowel exists before the anchor vowel or in compound roots. For example:"
+  " *nak > naie is correct, while *lnak > linai and *man-stek > manestie are incorrect."
+  *[#(Cs)?#(V)@1#(Cs)=#(_)] >> {
+    *[
+      [a, e, i, o, u]@1
+      [i, a, e, a, i]@0
+    ] >> [y, ai, ay|oi, ai, y],
+    *[
+      [a, e, i, o, u]@1
+      [[e, o], i, [a, u]]@0
+    ] >> [[ay|oi, eo], y, [ai, oeu]]
+  }
+};
+
+" ======== "
+
+" MARK: Word-Final Consonant Elision "
+
+" Applies during root compounding when the tail of the preceding root and the head of the following root form the combinations listed in this table, AND the following root begins with a consonant, OR the position of the following root is an inflectional suffix."
+" e.g., *nat-ar > nâr, where *-ar is the plural suffix."
+" e.g., *let-mot > loimot"
+" Note: The à rule for et is outdated; oi is now commonly used."
+
+#(tail_with_vowel) :: {
+[_] <- *[
+    at | es | is | ot | us |
+    as | et | it | os | ul
+  ]
+};
+
+#(tail_with_vowel) -> {
+  *[#(Cs)?#(_)=] >> {
+    *[at] >> [ah],
+    *[es] >> [eh],
+    *[is] >> [ih],
+    *[ot] >> [oh],
+    *[us] >> [uh],
+    *[as] >> {
+      *[#(null)=#(_)#(Cs)#(V)#(Cs)=] >> [ai],
+      *[#(_)] >> [aw]
+    },
+    *[et] >> {
+      *[#(null)=#(_)#(Cs)#(V)#(Cs)=] >> [ay|oi],
+      *[#(_)[s|t|l]] >> [aih],
+      *[#(_)] >> [oeh]
+    },
+    *[it] >> {
+      *[#(null)=#(_)#(Cs)#(V)#(Cs)=] >> [y|ei],
+      *[#(_)[s|z|t|d]] >> [iy],
+      *[#(_)] >> [iey]
+    },
+    *[os] >> {
+      *[#(null)=#(_)#(Cs)#(V)#(Cs)=] >> [eu],
+      *[#(_)[s|t|l]] >> [oei],
+      *[#(_)] >> [ew]
+    },
+    *[ul] >> [eou]
+  }
+};
+
+" ======== "
+
+" MARK: General Rules "
+
+*[ki] -> {
+  " *loci > lochès"
+  *[#(Cs)?#(V)#(Cs)#(_)=] >> [che]
+};
+
+*[f] -> {
+  " ni > ivregn"
+  *[
+    #(Cs)?#(V)#(_)#(Cs) |
+    #(Cs)?#(V)#(Cs)?#(_)#(Cs)?
+  ] >> {
+    [#(_)#(V)] >> [ve]
+  }
+};
+
+*[cn] -> {
+  " *makn > machnos"
+  [[r|l]!#(_)#(Vs)] >> [chn]
+};
+
+*[mr] -> {
+  " *umr > uphre"
+  [[r|l]!#(_)#(Vs)] >> [phr]
+};
+
+*[sr] -> {
+  [[r|l]!#(_)#(Vs)] >> [thr]
+};
+
+*[z] -> {
+  *[#(Cs)?#(V)#(Cs)?#(_)] >> {
+    [#(_)=] >> [ce],
+    [#(_)#(Vs)] >> [ti]
+  }
+};
+
+*[#(V)@0c|>ar] -> {
+  *[a, e, i, o, u]@0 >> [
+    awvoir,
+    oehvoir,
+    ieyvoir,
+    ewvoir,
+    eouvoir
+  ]
+};
+
+*[s] -> {
+  [#(_)#(Cs)#(V)@0#(Cs)] >> {
+    *[ a | o | u ]@0 >> [as],
+    *[ e | i ]@0 >> [es]
+  }
+};
+
+*[p=-as] -> [ph];
+
+*[t=-as] -> [th];
+
+*[t=-an] -> {
+  [#(_)#(V)] >> [thn]
+};
+
+*[t|>ar, p|>ar] -> [dre, bre];
+
+*[t|>al, p|>al] -> [du, bu];
+
+[ce] -> {
+  [#(V)u#(_)=] >> [te]
+};
+
+[ill] -> {
+  [#(V)#(_)] >> [sh | #(_) ]
+};
+
+*[p] -> {
+  *[#(Cs)?#(V)#(Cs)?#(_)=] >> [sf]
+};
+
+*[r] -> {
+  *[#(Cs)?#(_)[e|i]#(Cs)] >> [ru]
+};
+
+*[l] -> {
+  *[f#(_)[e|i]] >> [lu],
+  *[#(Cs)#(_)[a|o|u]#(Cs)] >> [i],
+  [#(Cs)#(_)#(V)] >> [u]
+};
+
+*[p=s] -> [fs];
+
+*[c, z] -> {
+  *[#(_)[a|o|u]] >> [c, ch],
+  *[#(_)[e|i]] >> [qu, c],
+  [#(_)[a|o|u]] >> [c, [ci|ti]],
+  [#(_)] >> [k, z]
+};
+
+*[ti, ni, li, si] -> {
+  *[#(Cs)#(V)#(Cs)?#(_)] >> [[
+    z, gn, ll, x
+  ]#(i)]
+};
+
+*[i] -> {
+  " Usable when i is at the end of a prefix in the first syllable of a compound word."
+  " e.g., pri-*man > préman"
+  *[#(Cs)#(_)=#(Cs)#(V)#(Cs)] >> [y]
+};
+
+*[w] -> [fu]; " *wart > fuarts"
+
+*[wu] -> [ow];
+
+*[ni, di] -> {
+  *[#(Cs)?#(_)#(Cs)=] >> [ye, ze]
+};
+
+" ======== "
+
+" MARK: Complex Word-Final Rules "
+
+" Applies during root compounding when the tail of the preceding root and the head of the following root form the combinations listed in this table, AND the following root begins with a vowel, OR for non-compound roots ending in the combinations listed in this table."
+" e.g., *mask > mâch"
+
+"TIP: The reference vowel for word-final rules is the vowel adjacent to the ending listed in the table, which may not be the anchor vowel. For example, *konks uses the a rule for *-cs. Its reference vowel is the epenthetic a added for the anchor vowel o, because the element before *-cs is the consonant *-n-, which has no vowel. In this case, the epenthetic vowel can be referenced."
+
+"NOTE: [*c / _C#] generally follows the [@i] rule."
+
+#(tail) :: {
+  [_] <- [
+    c  | ct | cr | cs |
+    st | sc | sp | sl |
+    ft |
+    pt | ps |
+    lc | ls |
+    pr | tr
+  ]
+};
+
+*[#(Cs)#(V)@0#(tail)@1] -> {
+  " V_i "
+  [c ]@1 >> { [#(V_i)]@0, [ll#(i)]@1 }, " Conflicts with a previous rule, but one can choose between the conflicting rules."
+  [ct]@1 >> { [#(V_i)]@0, [tt#(i)]@1 }, " *noct > noeitte"
+  [cr]@1 >> { [#(V_i)]@0, [tr#(i)]@1 }, " *tecr > teitrès"
+  [cs]@1 >> { [#(V_i)]@0, [ss#(i)]@1 }, " *concs > conaissès"
+  [tr]@1 >> { [#(V_i)]@0, [rr#(i)]@1 }, " *vetr > veirre"
+  " V_h "
+  [st]@1 >> { [#(V_h)]@0, [[th|ss]#(i)]@1 }, " *mast > mâsse"
+  [sc]@1 >> { [#(V_h)]@0, [ch#(i)]@1 }, " *masc > mâch"
+  [sp]@1 >> { [#(V_h)]@0, [ph#(i)]@1 }, " *vesp > vêphe"
+  [sl]@1 >> { [#(V_h)]@0, [ll#(i)]@1 }, " *fesl > fêllès"
+  " V_f "
+  [ft]@1 >> { [#(V_f)]@0, [ght#(i)]@1 }, " *tuft > teought"
+  " V_u "
+  [pt]@1 >> { [#(V_u)]@0, [tt#(i)]@1 }, " *capt > cauette"
+  [ps]@1 >> { [#(V_u)]@0, [ss#(i)]@1 }, " *caps > cauesse"
+  " V_v "
+  [lc]@1 >> { [#(V_v)]@0, [ch#(i)]@1 }, " *volc > vouche"
+  [ls]@1 >> { [#(V_v)]@0, [ss#(i)]@1 }, " *çals > chaussès"
+  [pr]@1 >> { [#(V_v)]@0, [tr#(i)]@1 }, " *vapr > vautre"
+};
+
+
+" ======== "
+
+" MARK: Additional Tables "
+
+" These tables show vowel changes under the [@X] and [&X] rules."
+
+#(V_i) :: {
+  [_] <- {
+    [#(_)] -> {
+      *[a, e, i, o, u] >> [
+        ai, ei, y, oei, oui
+      ]
+    }
+  }
+};
+
+#(V_u) :: {
+  [_] <- {
+    [#(_)] -> {
+      *[a, e, i, o, u] >> [
+        aue, ao, yu, oue, eue
+      ]
+    }
+  }
+};
+
+#(V_h) :: {
+  [_] <- {
+    [#(_)] -> {
+      *[a, e, i, o, u] >> [
+        ah, eh, euih, oh, ouh
+      ]
+    }
+  }
+};
+
+#(V_f) :: {
+  [_] <- {
+    [#(_)] -> {
+      *[a, e, i, o, u] >> [
+        au, ei, i, ou, eou
+      ]
+    }
+  }
+};
+
+#(V_v) :: {
+  [_] <- {
+    [#(_)] -> {
+      *[a, e, i, o, u] >> [
+        au, eu, ew, ou, ow
+      ]
+    }
+  }
+};
+
+" invisible i "
+
+" When the preceding root ends with an invisible i. Note: the invisible i only affects the vowel of a following vowel-initial root in compounding. For example: veirr[&i]-anes > veirrenes"
+
+#(i) :: {
+  [_] <- []
+};
+
+[#(i)#(V)] @> {
+  *[a, e, i, o, u] >> [
+    e, y, i, ey, eu
+  ]
+};
+
+" ======== "
+
+" MARK: Additional Table "
+
+" This table handles consonant lengthening after vowel prefixes. Applies when a prefix ending in a vowel is added to a root."
+" e.g., co-*bep > combesf"
+
+#(head) :: {
+  [_] <- *[
+    b | v | d | l | g | z | j
+  ]
+};
+
+*[#(C)#(head)] @> {
+  [ #(head)@0 & #(C)@1 ] >> {
+    *[b]@0 >> [mb ],
+    *[v]@0 >> [bf ],
+    *[l]@0 >> [tl ],
+    *[g]@0 >> [ng ],
+    *[z]@0 >> [tci],
+    *[j]@0 >> [dzi],
+    [#(_)@0i] >> {
+      *[n]@0 >> [yi],
+      *[d]@0 >> [dt]
+    },
+    [#(_)@0i!] >> {
+      *[d]@0 >> [nd]
+    }
+  }
+};
