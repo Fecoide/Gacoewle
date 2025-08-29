@@ -1,2 +1,2 @@
 # Gacoewle
-A DSL for defining the rules of conlang Gacoœùle.
+A DSL for defining the rules of conlang Gacœùle.
