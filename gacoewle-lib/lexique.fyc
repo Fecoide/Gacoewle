@@ -1,4 +1,5 @@
 #[stddef.fyc];
+#[file.fyc];
 
 #(file_metadata) <- {
   #(file) <- {
@@ -9,51 +10,75 @@
   #(description) <- 'lexique',
 };
 
----- lexque.fyc ----
+" lexque.fyc "
+
+" ====== part_of_speech ====== "
+
+#(part_of_speech) :: {
+  #(desc) <- 'part_of_speech',
+  #(static),
+  #(dynamic),
+  #(sub_dynamic),
+  #(modifier)
+};
+
+#(static) :: {
+  #(desc) <- 'static',
+  #(strength),
+  #(gender)
+};
+
+#(dynamic) :: {
+    #(desc) <- 'dynamic',
+    #(strength),
+    #(gender)
+};
+
+#(sub_dynamic) :: {
+  #(desc) <- 'sub_dynamic'
+};
+
+#(modifier) :: {
+  #(pre_modifier) <- 'pre_modifier',
+  #(post_modifier)
+};
+
+#(pre_modifier)  :: #(desc);
+
+#(post_modifier) :: {
+  #(desc) <- 'post_modifier',
+  #(strength),
+  #(gender)
+};
 
 #(strength) :: {
   #(desc) <- 'strength',
-  '_' <- {'strong' | 'weak' }
+  [_] <- [ strong | weak ]
 };
 
 #(gender) :: {
   #(desc) <- 'gender',
-  '_' <- {'masculine' | 'feminine'}
+  [_] <- [ masculine | feminine ]
 };
 
-#(part_of_speech) :: {
-  #(static) :: {
-    #(desc) <- 'static',
-    #(strength),
-    #(gender)
-  },
-  #(dynamic) :: {
-    #(desc) <- 'dynamic',
-    #(strength),
-    #(gender)
-  }
-  #(sub_dynamic) :: #(desc) <- 'sub_dynamic',
-  #(modifier) :: {
-    #(pre_modifier)  :: #(desc) <- 'pre_modifier',
-    #(post_modifier) :: {
-      #(desc) <- 'post_modifier',
-      #(strength),
-      #(gender)
-    }
-  }
-};
+" ====== iveygnenes ====== "
 
 #(iveygnenes) :: {
   #(desc) <- 'iveygnenes',
   [_]
 };
 
+" ====== defination ====== "
+
 #(definition) :: {
-  #(desc) <- 'defination'
+  #(desc) <- 'defination',
   '_'
 };
 
+
+" ====== gloss ====== "
+
 #(gloss) :: {
-  #(desc) <- 'gloss'
+  #(desc) <- 'gloss',
   '_'
 };
