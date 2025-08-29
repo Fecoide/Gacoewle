@@ -1,49 +1,20 @@
+#[file.fyc];
+
 #(file_metadata) <- {
   #(file) <- {
     #(file_name) <- 'stddef',
     #(file_type) <- 'fyc'
   },
   #(author) <- 'Heyangyang',
-  #(description) <- 'standard defination'
+  #(description) <- 'standard_defination'
 };
 
----- stddef.fyc ----
+" stddef.fyc "
 
-----
-Auth: Heyangyang
-Desc: file defination
-----
-
-#(file_metadata) :: {
-  #(file) :: {
-    #(desc) <- 'file',
-    #(file_name) :: {
-      #(desc) <- 'file_name',
-      '_'
-    },
-    #(file_type) :: {
-      #(desc) <- 'file_type',
-      '_'
-    }
-  },
-  #(author) :: {
-    #(desc) <- 'author',
-    '_'
-  },
-  #(description) :: {
-    #(desc) <- 'description',
-    '_'
-  },
-  #(create_time) :: {
-    #(desc) <- 'create_time',
-    '_'
-  }
-};
-
-----
+"
 Auth: Heyangyang
 Desc: basic defination
-----
+"
 
 #(desc) :: {
   "Define a component to descript a certain component"
@@ -51,101 +22,21 @@ Desc: basic defination
   '_'
 };
 
-----
-Auth: Heyangyang
-Desc: phonetic defination
-----
+" Operator "
 
----- vowel ----
-
-#(V) :: {
-  "Define valid vowels in Gacoœùle"
-  #(desc) <- 'vowel',
-  [_] <- *[ a | e | i | o | u ]
+#(Stack) :: {
+  #(desc) <- 'stack',
+  [_] <- [#(null) | #(_)#(Stack)]
 };
 
-#(Vs) :: {
-  #(desc) <- 'vowel_cluster',
-  [_] <- {
-    *[ #(V) | [#(V)#(Vs)] ]
-  }
-};
-
-#(inv) :: {
-  #(desc) <- 'invisible_i',
-  [_] <- *[]
-};
-
----- consonant ----
-
-#(C) :: {
-  "Define valid consonants in Gacoœùle"
-  #(desc) <- 'consonant',
-  [_] <- *[
-    b | c | d | f | g | h | j | l |
-    m | n | p | r | s | t | v | w | z
-  ]
-};
-
-#(Cs) :: {
-  #(desc) <- 'consonant_cluster',
-  [_] <- {
-    *[ #(C) | [#(C)#(Cs)] ]
-  }
-};
-
-#(F) :: {
-  -- #(desc) <- 'test',
-  [_] <- *[ f | h | j | s | v | w | z ]
-};
-
-#(N) :: {
-  #(desc) <- 'nasal',
-  [_] <- *[ m | n ]
-};
-
-#(U) :: {
-  #(desc) <- 'unvoiced',
-  [_] <- *[ c | f | p | s | t ]
-};
-
----- other ----
-
-#(P) :: {
-  #(desc) <- 'phoneme',
-  [_] <- *[#(V)|#(C)]
-};
-
-#(str) :: {
-  #(desc) <- 'instem_string',
-  [_] <- {
-  *[#(_).] >> *[=#(str)#(_).],
-  *[.#(_)] >> *[.#(_)#(str)=]
-  }
-};
-
-#(root) :: {
-  #(desc) <- 'root_stem',
-  [_] <- *[#(Cs)#(V)#(Cs)#(inv)]
+#(Sequence) :: {
+  #(desc) <- 'sequence',
+  [_] <- [ #(null) | [#(Sequence)#(_)] ]
 };
 
 #(null) :: {
   #(desc) <- 'null',
   [_] <- []
 };
-
----- Operator ----
-
-#(Stack) :: {
-  #(desc) <- 'stack'
-  [_] <- [#(null) | #(_)#(Stack)]
-};
-
-#(Sequence) :: {
-  #(desc) <- 'sequence'
-  [_] <- [ #(P) | [#(P)#(Sequence)] ]
-};
-
-
 
 
