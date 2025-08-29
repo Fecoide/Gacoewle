@@ -1,0 +1,41 @@
+#[stddef.fyc];
+
+#(file_metadata) <- {
+  #(file) <- {
+    #(file_name) <- 'file',
+    #(file_type) <- 'fyc'
+  },
+  #(author) <- 'Heyangyang',
+  #(description) <- 'file_defination'
+};
+
+"
+Auth: Heyangyang
+Desc: file defination
+"
+
+#(file_metadata) :: {
+  #(file) :: {
+    #(desc) <- 'file',
+    #(file_name) :: {
+      #(desc) <- 'file_name',
+      '_'
+    },
+    #(file_type) :: {
+      #(desc) <- 'file_type',
+      '_'
+    }
+  },
+  #(author) :: {
+    #(desc) <- 'author',
+    '_'
+  },
+  #(description) :: {
+    #(desc) <- 'description',
+    '_'
+  },
+  #(create_time) :: {
+    #(desc) <- 'create_time',
+    '_'
+  }
+};
