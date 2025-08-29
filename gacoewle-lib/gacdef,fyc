@@ -1,0 +1,91 @@
+#[file.fyc];
+#[stddef.fyc];
+
+#(file_metadata) <- {
+  #(file) <- {
+    #(file_name) <- 'gacdef',
+    #(file_type) <- 'fyc'
+  },
+  #(author) <- 'Heyangyang',
+  #(description) <- 'Gacoewle_rules_definition'
+};
+
+" gacdef.fyc "
+
+"
+Auth: Heyangyang
+Desc: Gacoœùle phonological rules and patterns
+"
+
+" vowel "
+
+#(V) :: {
+  "Define valid vowels in Gacoœùle"
+  #(desc) <- 'vowel',
+  [_] <- *[ a | e | i | o | u ]
+};
+
+#(Vs) :: {
+  #(desc) <- 'vowel_cluster',
+  [_] <- {
+    *[ #(V) | [#(V)#(Vs)] ]
+  }
+};
+
+#(inv) :: {
+  #(desc) <- 'invisible_i',
+  [_] <- *[]
+};
+
+" consonant "
+
+#(C) :: {
+  "Define valid consonants in Gacoœùle"
+  #(desc) <- 'consonant',
+  [_] <- *[
+    b | c | d | f | g | h | j | l |
+    m | n | p | r | s | t | v | w | z
+  ]
+};
+
+#(Cs) :: {
+  #(desc) <- 'consonant_cluster',
+  [_] <- {
+    *[ #(C) | [#(C)#(Cs)] ]
+  }
+};
+
+#(F) :: {
+  #(desc) <- 'test',
+  [_] <- *[ f | h | j | s | v | w | z ]
+};
+
+#(N) :: {
+  #(desc) <- 'nasal',
+  [_] <- *[ m | n ]
+};
+
+#(U) :: {
+  #(desc) <- 'unvoiced',
+  [_] <- *[ c | f | p | s | t ]
+};
+
+" others "
+
+#(P) :: {
+  #(desc) <- 'phoneme',
+  [_] <- *[#(V)|#(C)]
+};
+
+" #(str) :: { "
+"   #(desc) <- 'instem_string', "
+"   [_] <- { "
+"   *[#(_).] >> *[=#(str)#(_).], "
+"   *[.#(_)] >> *[.#(_)#(str)=] "
+"   } "
+" }; "
+
+#(root) :: {
+  #(desc) <- 'root_stem',
+  [_] <- *[#(Cs)#(V)#(Cs)#(inv)]
+};
